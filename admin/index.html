@@ -59,7 +59,11 @@
   $(function() {
     // 左边下拉菜单
     $(".level01").eq(1).click(function() {
-      $(this).next(".level02").slideToggle();
+        $(this).next(".level02").slideToggle();
+      })
+      // 左边下拉菜单 高亮
+    $(".level01").click(function() {
+      $(this).addClass("active").siblings().removeClass("active")
     })
 
   })

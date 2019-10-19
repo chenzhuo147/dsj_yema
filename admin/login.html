@@ -67,14 +67,14 @@
             } else if (res.code === 200) {
               // 正确
               // alert(res.msg);
+              // 设置登录令牌
+              window.localStorage.setItem("token", res.token);
+              // 跳转
               window.location.href = "./index.html"
             }
-            console.log(res);
 
           }
-
         });
-
       })
     })
   </script>
