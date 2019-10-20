@@ -74,7 +74,7 @@
     $.ajax({
       url: BigNew.user_detail,
       success: function(res) {
-        console.log(res);
+        // console.log(res);
         // 优化前  不建议使用此方法
         $(".username").val(res.data.username)
           //  key 对象的键
@@ -88,7 +88,29 @@
       }
     });
 
-
+    // 修改个人数据
+    $(".btn-edit").click(function(e) {
+      // 阻止button的默认跳转行为
+      e.preventDefault();
+      // formData
+      // 表单form 拥有一个特殊点获取
+      var data = new FormData(document.querySelector("#form"))
+      $.ajax({
+        type: "post",
+        url: BigNew.user_edit,
+        data: data,
+        // 不设置类型
+        contentType: false,
+        // 不处理数据
+        processData: false,
+        success: function(res) {
+          // console.log(res);
+          if (res.code == 200) {
+            window.parent.location.reload();
+          }
+        }
+      });
+    })
   })
 </script>
 
