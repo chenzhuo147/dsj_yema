@@ -70,9 +70,7 @@
     $.ajax({
       url: "http://localhost:8080/api/v1/admin/user/info",
       // 在前面获取token 登录令牌
-      headers: {
-        Authorization: window.localStorage.getItem("key")
-      },
+
       // 成功调函数
       success: function(res) {
         console.log(res);
@@ -83,13 +81,13 @@
         $(".user_center_link>img").attr("src", res.data.userPic);
       },
       // 失败时调函数
-      error: function(r) {
-        // console.log(res);
-        if (r.statusText === "Forbidden") {
-          alert("请登录");
-          window.location.href = "./login.html"
-        }
-      }
+      // error: function(r) {
+      //   // console.log(res);
+      //   if (r.statusText === "Forbidden") {
+      //     alert("请登录");
+      //     window.location.href = "./login.html"
+      //   }
+      // }
 
     });
 
