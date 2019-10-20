@@ -141,7 +141,30 @@
 
     })
 
+    // 删除按钮
+    $("tbody").on("click", ".btn-xs", function() {
+      // 判断是否要删除
+      if (confirm("确定要执行此操作吗?")) {
+        var asd = $(this).attr("data-id");
+        //   console.log(asd);
+        $.ajax({
+          type: "post",
+          url: BigNew.category_delete,
+          data: {
+            id: asd
+          },
+          success: function(resp) {
+            console.log(resp);
+            if (resp.code == 204) {
 
+              loaddata();
+            }
+
+          }
+        });
+      }
+
+    })
 
 
   })
