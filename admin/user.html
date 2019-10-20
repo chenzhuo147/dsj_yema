@@ -69,18 +69,26 @@
   </div>
 </body>
 <script>
-  // 用户详情获取
   $(function() {
+    // 用户详情获取
     $.ajax({
-      type: "get",
-      url: "http://localhost:8080/api/v1/admin/user/detail",
-      data: "data",
-      dataType: "dataType",
+      url: BigNew.user_detail,
       success: function(res) {
         console.log(res);
+        // 优化前  不建议使用此方法
+        $(".username").val(res.data.username)
+          //  key 对象的键
+          // 优化后  建议使用此方法
+        for (const key in res.data) {
+          $("." + key).val(res.data[key])
+        }
 
+        // 单独设置修改图片
+        $(".user_pic").attr("src", res.data.userPic)
       }
     });
+
+
   })
 </script>
 
