@@ -74,6 +74,13 @@
             }
           }
         });
+        // 对应更换图片
+        $("#exampleInputFile").change(function() {
+          // 生成url
+          var url = URL.createObjectURL(this.file[0])
+          $(this).siblings("img").attr("src", url);
+        })
+
       })
     })
   </script>
