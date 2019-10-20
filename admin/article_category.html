@@ -67,8 +67,8 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">一万点暴击</button>
-          <button type="button" class="btn btn-primary">嗝屁</button>
+          <button type="button" class="btn btn-default " data-dismiss="modal">嗝屁</button>
+          <button type="button" class="btn btn-primary btn-tj">一万点暴击</button>
         </div>
       </div>
     </div>
@@ -76,6 +76,7 @@
 </body>
 
 </html>
+<!-- 定义模板: 模板引擎 -->
 <script type="text/html" id="yema">
   {{each data}}
   <tr>
@@ -88,19 +89,57 @@
   </tr>
   {{/each}}
 </script>
-
+<!-- 获取表单内容 -->
 <script>
   $(function() {
-    $.ajax({
-      type: "get",
-      url: BigNew.category_list,
-      success: function(res) {
-        console.log(res);
-        var tr = template("yema", res);
-        $("tbody").html(tr);
-      }
-    });
+    function loaddata() {
+      $.ajax({
+        type: "get",
+        url: BigNew.category_list,
+        success: function(res) {
 
+          var tr = template("yema", res);
+          $("tbody").html(tr);
+        }
+      });
+      $("#exampleInputEmail1").val("");
+      $("#exampleInputPassword1").val("");
+    }
+    loaddata();
+    // 新增分类
+    $(".btn-tj").click(function() {
+      var name = $("#exampleInputEmail1").val();
+      var slug = $("#exampleInputPassword1").val();
+      $.ajax({
+        type: "post",
+        url: BigNew.category_add,
+        data: {
+          name: name,
+          slug: slug
+        },
+        // 返参: 成功
+        success: function(res) {
+          console.log(res);
+          if (res.code == 201) {
+            $("#myModal").modal("hide");
+            loaddata();
+          }
+
+          //   } else if (res.code == 400) {
+          //     alert("内容重复,请重新添加")
+          //   };
+
+        },
+        // 返参: 失败
+        error: function(r) {
+          console.log(r);
+          if (r.status == 400) {
+            alert("内容重复,请重新添加")
+          }
+        }
+      });
+
+    })
 
 
 
